@@ -1,0 +1,43 @@
+<%- include ('partials/header.ejs'); -%>
+    <div class="container">
+        <% if (message != '') { %>
+            <p class="text-center text-danger"><%= message %></p>
+        <% } %>
+        <form class="verify-form" action="/verify" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                  <input id="phone_number" value="<%= params.phone_number %>" type="text" class="form-control" name="phone_number" id="phone-number" placeholder="Enter Phone Number" required>
+            </div>
+
+                <div class="form-group col-md-4">
+                       <button id="resend" type="button" class="btn btn-danger">Resend</button>
+                 </div>
+            </div>
+              <input type="hidden" name="id" value="<%= params.id %>">
+            <div class="form-row">
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter OTP " required>
+            </div>
+            </div>
+            <div class="form-row">
+            <button type="submit" class="btn btn-primary float-right">Verify & Download</button>
+            </div>
+        </form>
+    </div>
+   <script type="text/javascript">
+     $('#resend').click(function (e) {
+         let num = $("#phone_number").val()
+           $.ajax({
+            type: 'GET',
+            url: '/resend/'+num,
+          //data: { phone_number:  num },
+          })
+          .done(function (data) {
+          //  alert(JSON.stringify(data));
+          });
+        });
+
+    </script>
+</div>
+</body>
+</html>
